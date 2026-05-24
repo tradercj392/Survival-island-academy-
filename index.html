@@ -1,1 +1,117 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Survival Island Academy</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #87ceeb;
+      text-align: center;
+    }
+
+    #game {
+      width: 600px;
+      height: 400px;
+      margin: 20px auto;
+      background: #5dbb63;
+      border: 4px solid #333;
+      position: relative;
+    }
+
+    .zone {
+      width: 180px;
+      height: 150px;
+      position: absolute;
+      border: 2px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    #beach { background: #f4d35e; top: 20px; left: 20px; }
+    #jungle { background: #2a9d8f; top: 20px; right: 20px; }
+    #camp { background: #8d6e63; bottom: 20px; left: 200px; }
+
+    #panel {
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #questionBox {
+      margin-top: 15px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Survival Island Academy</h1>
+<p>Math Survival Adventure</p>
+
+<div id="game">
+  <div id="beach" class="zone">Beach</div>
+  <div id="jungle" class="zone">Jungle</div>
+  <div id="camp" class="zone">Camp</div>
+</div>
+
+<div id="panel">
+  <button onclick="explore()">Explore Island</button>
+
+  <div id="questionBox">
+    <p id="question"></p>
+    <input id="answer" type="number" />
+    <button onclick="checkAnswer()">Submit</button>
+  </div>
+
+  <p id="result"></p>
+  <p>XP: <span id="xp">0</span></p>
+  <p>Wood: <span id="wood">0</span></p>
+</div>
+
+<script>
+let currentAnswer = 0;
+let xp = 0;
+let wood = 0;
+
+function explore() {
+  let a = Math.floor(Math.random() * 12) + 1;
+  let b = Math.floor(Math.random() * 12) + 1;
+
+  currentAnswer = a * b;
+
+  document.getElementById("question").innerText =
+    `You found a locked crate! Solve: ${a} × ${b} = ?`;
+
+  document.getElementById("questionBox").style.display = "block";
+  document.getElementById("result").innerText = "";
+}
+
+function checkAnswer() {
+  let user = parseInt(document.getElementById("answer").value);
+
+  if (user === currentAnswer) {
+    xp += 10;
+    wood += 1;
+
+    document.getElementById("result").innerText = "Correct! You got rewards!";
+  } else {
+    document.getElementById("result").innerText = "Try again!";
+  }
+
+  document.getElementById("xp").innerText = xp;
+  document.getElementById("wood").innerText = wood;
+  document.getElementById("questionBox").style.display = "none";
+  document.getElementById("answer").value = "";
+}
+</script>
+
+</body>
+</html>
